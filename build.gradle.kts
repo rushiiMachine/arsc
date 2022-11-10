@@ -12,11 +12,16 @@ repositories {
 }
 
 dependencies {
+	implementation(kotlin("kotlin"))
     testImplementation(kotlin("test"))
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+kotlin {
+	explicitApi()
 }
 
 tasks.withType<KotlinCompile> {
