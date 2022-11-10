@@ -119,10 +119,10 @@ public data class ArscTypeConfigId(
 }
 
 public data class ArscType(
-	var id: StringPoolSize,
+	var id: UInt,
 	var name: ArscTypeName,
 	var configs: List<ArscTypeConfig>,
-	var specs: List<ArscTypeSpec>,
+	var specs: ArscSpecs,
 )
 
 public class ArscError(position: Int, value: Any, message: String) : Error("Failed to parse arsc at index $position, value $value: $message")

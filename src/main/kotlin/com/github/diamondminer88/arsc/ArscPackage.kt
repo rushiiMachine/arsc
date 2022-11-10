@@ -89,18 +89,18 @@ public data class ArscPackage(
 			while (true) {
 				println("loop pos: $startPos")
 
-				val header = try {
+				val chunkHeader = try {
 					ArscHeader.parse(bytes)
 				} catch (t: Throwable) {
 					bytes.position(startPos)
 					break
 				}
 
-				when (header.type) {
+				when (chunkHeader.type) {
 					ArscHeaderType.TableTypeSpec -> {
-						val specs = ArscTypeSpec.parseChunk(bytes)
+						val specs = ArscSpecs.parse(bytes)
 
-						val type = types[specs.typeId]
+						val type = types[specs.typeId.toInt()]
 						assert(type.specs.isEmpty()) { "Duplicate specs chunk defined for type ${type.name}" }
 
 						type.specs = specs
@@ -113,7 +113,7 @@ public data class ArscPackage(
 
 					else -> throw ArscError(
 						startPos - ArscHeader.BYTES_SIZE,
-						header.type,
+						chunkHeader.type,
 						"Unexpected chunk type in typeIds section of package $packageName"
 					)
 				}

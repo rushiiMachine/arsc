@@ -62,7 +62,9 @@ internal data class ArscStringPool(
 			val charCount = readUtf8Length(bytes)
 			val byteCount = readUtf8Length(bytes)
 
-			val stringBytes = ByteArray(byteCount).also { bytes.get(it, 0, byteCount) }
+			val stringBytes = ByteArray(byteCount.toInt())
+				.also { bytes.get(it, 0, byteCount.toInt()) }
+
 			return String(stringBytes, Charsets.UTF_8)
 		}
 
@@ -81,7 +83,9 @@ internal data class ArscStringPool(
 			val byteCount = readUtf16Length(bytes)
 
 			bytes.position(bytes.position() + 2) // skip null terminator
-			val stringBytes = ByteArray(byteCount).also { bytes.get(it, 0, byteCount) }
+			val stringBytes = ByteArray(byteCount.toInt())
+				.also { bytes.get(it, 0, byteCount.toInt()) }
+
 			return String(stringBytes, Charsets.UTF_16LE)
 		}
 	}
