@@ -35,7 +35,7 @@ public data class ArscPackage(
 				id = highestTypeId() + 1U,
 				name = name,
 				configs = mutableListOf(),
-				specs = mutableListOf(),
+				specs = null,
 			)
 		}
 
@@ -75,10 +75,10 @@ public data class ArscPackage(
 
 			val types = (1..typeNames.strings.size).map {
 				ArscType(
-					id = it,
+					id = it.toUInt(),
 					name = typeNames.strings[it - 1],
-					specs = mutableListOf(),
 					configs = mutableListOf(),
+					specs = null,
 				)
 			}
 
@@ -101,7 +101,7 @@ public data class ArscPackage(
 						val specs = ArscSpecs.parse(bytes)
 
 						val type = types[specs.typeId.toInt()]
-						assert(type.specs.isEmpty()) { "Duplicate specs chunk defined for type ${type.name}" }
+						assert(type.specs != null) { "Duplicate specs chunk defined for type ${type.name}" }
 
 						type.specs = specs
 					}
