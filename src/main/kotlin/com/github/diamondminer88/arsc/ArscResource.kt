@@ -17,6 +17,7 @@ public data class ArscResource(
 			bytes: ByteBuffer,
 			resourceCount: Int,
 			globalStringPool: ArscStringPool,
+			keyStringPool: ArscStringPool,
 		): MutableList<ArscResource> {
 			val entries = (0 until resourceCount)
 				.map { bytes.int.toUInt() }
@@ -50,8 +51,7 @@ public data class ArscResource(
 				resources += ArscResource(
 					specId = specIndex.toUInt(),
 					flags = flags,
-					// name = keyStringPool.strings[nameIndex],
-					name = "", // TODO: here
+					name = keyStringPool.strings[nameIndex.toInt()],
 					value = value,
 				)
 			}

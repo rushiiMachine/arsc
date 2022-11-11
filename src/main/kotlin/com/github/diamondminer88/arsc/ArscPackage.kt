@@ -102,7 +102,7 @@ public data class ArscPackage(
 					}
 
 					ArscHeaderType.TableType -> {
-						val config = ArscConfig.parse(bytes, globalStringPool)
+						val config = ArscConfig.parse(bytes, globalStringPool, keyNames)
 						types[config.typeId.toInt() - 1].configs += config
 					}
 

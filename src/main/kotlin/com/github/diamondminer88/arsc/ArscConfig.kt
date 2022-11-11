@@ -19,14 +19,18 @@ public data class ArscConfig(
 		 * Read a resource config from the current position in the buffer
 		 */
 		@JvmStatic
-		fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): ArscConfig {
+		fun parse(
+			bytes: ByteBuffer,
+			globalStringPool: ArscStringPool,
+			keyStringPool: ArscStringPool,
+		): ArscConfig {
 			val typeId = bytes.get().toUByte()
 			val res0 = bytes.get().toUByte()
 			val res1 = bytes.short.toUShort()
 			val resourceCount = bytes.int.toUInt()
 			val resourcesStart = bytes.int.toUInt()
 			val configId = ConfigId.parse(bytes)
-			val resources = ArscResource.parse(bytes, resourceCount.toInt(), globalStringPool)
+			val resources = ArscResource.parse(bytes, resourceCount.toInt(), globalStringPool, keyStringPool)
 
 			return ArscConfig(
 				typeId = typeId,
