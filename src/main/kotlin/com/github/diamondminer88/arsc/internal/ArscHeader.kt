@@ -10,8 +10,8 @@ import java.nio.ByteBuffer
  */
 internal data class ArscHeader(
 	val type: ArscHeaderType,
-	val headerSize: Short,
-	val size: Long,
+	val headerSize: UShort,
+	val size: UInt,
 ) {
 	companion object {
 		const val BYTES_SIZE = ArscHeaderType.SIZE_BYTES + 6
@@ -22,8 +22,8 @@ internal data class ArscHeader(
 		@JvmStatic
 		fun parse(bytes: ByteBuffer): ArscHeader {
 			val type = ArscHeaderType.parse(bytes)
-			val headerSize = bytes.short
-			val bodySize = bytes.long
+			val headerSize = bytes.short.toUShort()
+			val bodySize = bytes.int.toUInt()
 
 			return ArscHeader(
 				type = type,
