@@ -29,7 +29,8 @@ public data class ArscStyle(
 				val end = bytes.int.toUInt()
 
 				spans += Span(
-					name = name,
+					// name = name,
+					name = "", // TODO: here
 					start = start,
 					end = end
 				)

@@ -21,14 +21,6 @@ public class Arsc {
 	}
 
 	/**
-	 * Loads an arsc file from a file
-	 */
-	public constructor(file: File) {
-		packages = emptyList()
-		Arsc(file.readBytes())
-	}
-
-	/**
 	 * Loads arsc from a bytearray
 	 */
 	public constructor(bytes: ByteArray) {
@@ -36,14 +28,21 @@ public class Arsc {
 			.wrap(bytes)
 			.order(ByteOrder.LITTLE_ENDIAN)
 
-		println(ArscHeader.parse(buffer)) // throwaway
-
-		val packageCount = buffer.int
+		val header = ArscHeader.parse(buffer)
+		val packageCount = buffer.int.toUInt()
 		val globalStringPool = ArscStringPool.parse(buffer)
-		val packages = MutableList(packageCount) { ArscPackage.parse(buffer) }
+		val packages = MutableList(packageCount.toInt()) {
+			ArscPackage.parse(buffer, globalStringPool)
+		}
 
 		this.packages = packages
 	}
+
+	/**
+	 * Loads an arsc file from a file
+	 */
+	public constructor(file: File) :
+		this(file.readBytes())
 
 	override fun toString(): String {
 		return "Arsc[packages=$packages]"

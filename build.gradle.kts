@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-	implementation(kotlin("kotlin"))
+	implementation(kotlin("stdlib"))
     testImplementation(kotlin("test"))
 }
 

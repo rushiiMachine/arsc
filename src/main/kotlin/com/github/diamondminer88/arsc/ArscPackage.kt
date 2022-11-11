@@ -57,7 +57,7 @@ public data class ArscPackage(
 		 * Parse an arsc package at the current position in the buffer
 		 */
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscPackage {
+		fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): ArscPackage {
 			val header = ArscHeader.parse(bytes)
 			assert(header.type == ArscHeaderType.TablePackage) { "Parsed package header contains an invalid type" }
 
@@ -107,7 +107,7 @@ public data class ArscPackage(
 					}
 
 					ArscHeaderType.TableType -> {
-						val config = ArscConfig.parse(bytes)
+						val config = ArscConfig.parse(bytes, globalStringPool)
 						types[config.typeId.toInt()].configs += config
 					}
 

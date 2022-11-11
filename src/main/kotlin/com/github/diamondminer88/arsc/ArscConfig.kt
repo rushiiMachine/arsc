@@ -1,5 +1,6 @@
 package com.github.diamondminer88.arsc
 
+import com.github.diamondminer88.arsc.internal.ArscStringPool
 import java.nio.ByteBuffer
 
 /**
@@ -12,7 +13,7 @@ import java.nio.ByteBuffer
  */
 public data class ArscConfig(
 	internal val typeId: UByte,
-	internal val configId: ArscTypeConfigId,
+	internal val configId: ConfigId,
 	var res0: UByte,
 	var res1: UShort,
 	var resources: MutableList<ArscResource>,
@@ -22,14 +23,14 @@ public data class ArscConfig(
 		 * Read a resource config from the current position in the buffer
 		 */
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscConfig {
+		fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): ArscConfig {
 			val typeId = bytes.get().toUByte()
 			val res0 = bytes.get().toUByte()
 			val res1 = bytes.short.toUShort()
 			val resourceCount = bytes.int.toUInt()
 			val resourcesStart = bytes.int.toUInt()
-			val configId = ArscTypeConfigId.parse(bytes)
-			val resources = ArscResource.parseMultiple(resourceCount)
+			val configId = ConfigId.parse(bytes)
+			val resources = ArscResource.parse(bytes, resourceCount.toInt(), globalStringPool)
 
 			return ArscConfig(
 				typeId = typeId,
@@ -40,36 +41,36 @@ public data class ArscConfig(
 			)
 		}
 	}
-}
 
-public data class ArscTypeConfigId(
-	public var data: ByteArray,
-) {
-	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
-		other as ArscTypeConfigId
-		if (!data.contentEquals(other.data)) return false
-		return true
-	}
+	public data class ConfigId(
+		public var data: ByteArray,
+	) {
+		override fun equals(other: Any?): Boolean {
+			if (this === other) return true
+			if (javaClass != other?.javaClass) return false
+			other as ConfigId
+			if (!data.contentEquals(other.data)) return false
+			return true
+		}
 
-	override fun hashCode(): Int {
-		return data.contentHashCode()
-	}
+		override fun hashCode(): Int {
+			return data.contentHashCode()
+		}
 
-	internal companion object {
-		/**
-		 * Reads a config id from the current position in the buffer
-		 */
-		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscTypeConfigId {
-			val size = bytes.int.toUInt()
-			bytes.position(bytes.position() - 4)
+		internal companion object {
+			/**
+			 * Reads a config id from the current position in the buffer
+			 */
+			@JvmStatic
+			fun parse(bytes: ByteBuffer): ConfigId {
+				val size = bytes.int.toUInt()
+				bytes.position(bytes.position() - 4)
 
-			val idBytes = ByteArray(size.toInt())
-				.also { bytes.get(it, 0, size.toInt()) }
+				val idBytes = ByteArray(size.toInt())
+					.also { bytes.get(it, 0, size.toInt()) }
 
-			return ArscTypeConfigId(idBytes)
+				return ConfigId(idBytes)
+			}
 		}
 	}
 }

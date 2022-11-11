@@ -1,5 +1,6 @@
 package com.github.diamondminer88.arsc
 
+import com.github.diamondminer88.arsc.internal.ArscStringPool
 import java.nio.ByteBuffer
 
 public data class ArscResource(
@@ -12,7 +13,11 @@ public data class ArscResource(
 		private const val FLAG_COMPLEX = 0x0001u
 
 		@JvmStatic
-		fun parse(bytes: ByteBuffer, resourceCount: Int): List<ArscResource> {
+		fun parse(
+			bytes: ByteBuffer,
+			resourceCount: Int,
+			globalStringPool: ArscStringPool,
+		): MutableList<ArscResource> {
 			val entries = (0 until resourceCount)
 				.map { bytes.int.toUInt() }
 
@@ -30,7 +35,7 @@ public data class ArscResource(
 					val count = bytes.int.toUInt()
 					val values = (0 until count.toInt()).associate {
 						val index = bytes.int.toUInt()
-						val value = ArscValue.Plain.parse(bytes)
+						val value = ArscValue.Plain.parse(bytes, globalStringPool)
 						index to value
 					}
 
@@ -39,13 +44,14 @@ public data class ArscResource(
 						values = values,
 					)
 				} else {
-					ArscValue.Plain.parse(bytes)
+					ArscValue.Plain.parse(bytes, globalStringPool)
 				}
 
 				resources += ArscResource(
 					specId = specIndex.toUInt(),
 					flags = flags,
-					name = keyStringPool.strings[nameIndex],
+					// name = keyStringPool.strings[nameIndex],
+					name = "", // TODO: here
 					value = value,
 				)
 			}
