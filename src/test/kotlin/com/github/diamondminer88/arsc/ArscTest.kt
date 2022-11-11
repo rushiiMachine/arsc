@@ -1,20 +1,39 @@
 package com.github.diamondminer88.arsc
 
 import org.junit.jupiter.api.assertDoesNotThrow
+import java.io.File
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
 
 class ArscTest {
-	private val discordResources = javaClass.classLoader
-		.getResourceAsStream("discord.arsc")!!
-		.readBytes()
+	@Test
+	fun `from parsed`() {
+		val pkg = ArscPackage(
+			id = 0u,
+			name = "com.discord",
+			types = mutableMapOf(),
+		)
+
+		val arsc = Arsc(listOf(pkg))
+		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
+	}
 
 	@Test
 	fun `from bytes`() {
-		val arsc = assertDoesNotThrow {
-			Arsc(discordResources)
-		}
+		val arscFile = javaClass.classLoader
+			.getResourceAsStream("discord.arsc")!!
+			.readBytes()
 
-		assertTrue(arsc.packages.isNotEmpty(), "empty packages list")
+		val arsc = assertDoesNotThrow { Arsc(arscFile) }
+		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
+	}
+
+	@Test
+	fun `from file`() {
+		val arscFile = javaClass.classLoader
+			.getResource("discord.arsc")!!
+
+		val arsc = assertDoesNotThrow { Arsc(File(arscFile.file)) }
+		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
 	}
 }
