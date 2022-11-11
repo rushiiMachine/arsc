@@ -82,13 +82,8 @@ public data class ArscPackage(
 				)
 			}
 
-			println("typeIds off $typeIdsOffset")
-			println("cur pos ${bytes.position()}")
-
 			var startPos = bytes.position()
 			while (true) {
-				println("loop pos: $startPos")
-
 				val chunkHeader = try {
 					ArscHeader.parse(bytes)
 				} catch (t: Throwable) {

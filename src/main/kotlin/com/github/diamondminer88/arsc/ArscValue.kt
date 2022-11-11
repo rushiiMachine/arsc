@@ -18,8 +18,6 @@ public sealed interface ArscValue {
 				val type = bytes.get().toUByte()
 				val data = bytes.int.toUInt()
 
-				println("value zero: $zero")
-
 				return if (type.toUInt() and TYPE_STRING != 0U) {
 					PlainString(
 						size = size,
