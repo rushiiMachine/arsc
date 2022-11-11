@@ -5,7 +5,6 @@ import java.nio.ByteBuffer
 
 public sealed interface ArscValue {
 	public abstract class Plain : ArscValue {
-		public abstract val size: UShort
 		public abstract val type: UByte
 
 		internal companion object {
@@ -20,12 +19,10 @@ public sealed interface ArscValue {
 
 				return if (type == TYPE_STRING) {
 					PlainString(
-						size = size,
 						data = globalStringPool.strings[data.toInt()]
 					)
 				} else {
 					PlainRaw(
-						size = size,
 						type = type,
 						data = data,
 					)
@@ -35,13 +32,11 @@ public sealed interface ArscValue {
 	}
 
 	public data class PlainRaw(
-		override val size: UShort,
 		override val type: UByte,
 		val data: UInt,
 	) : Plain()
 
 	public data class PlainString(
-		override val size: UShort,
 		val data: String,
 	) : Plain() {
 		override val type: UByte = 0x3U

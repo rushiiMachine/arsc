@@ -7,15 +7,11 @@ import java.nio.ByteBuffer
  * Represents a type configuration (mipmap-xxhdpi, mipmap-hdpi, etc...)
  * @param typeId The parsed type id this belongs to
  * @param configId The id of this config
- * @param res0 u8 representation of something
- * @param res1 u16 representation of something
  * @param resources The actual resource data
  */
 public data class ArscConfig(
-	internal val typeId: UByte,
-	internal val configId: ConfigId,
-	var res0: UByte,
-	var res1: UShort,
+	internal val typeId: UByte = 0u,
+	val configId: ConfigId,
 	var resources: MutableList<ArscResource>,
 ) {
 	internal companion object {
@@ -35,8 +31,6 @@ public data class ArscConfig(
 			return ArscConfig(
 				typeId = typeId,
 				configId = configId,
-				res0 = res0,
-				res1 = res1,
 				resources = resources,
 			)
 		}

@@ -4,7 +4,7 @@ import com.github.diamondminer88.arsc.internal.ArscStringPool
 import java.nio.ByteBuffer
 
 public data class ArscResource(
-	internal val specId: UInt,
+	internal val specId: UInt = 0u,
 	val flags: UShort,
 	val name: String,
 	val value: ArscValue,

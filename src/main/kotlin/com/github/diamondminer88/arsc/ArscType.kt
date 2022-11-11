@@ -4,7 +4,7 @@ public data class ArscType(
 	var id: UInt,
 	var name: ArscTypeName,
 	var configs: List<ArscConfig>,
-	var specs: ArscSpecs?, // TODO: figure out what to do about the null here
+	var specs: ArscSpecs?,
 )
 
 public typealias ArscTypeName = String

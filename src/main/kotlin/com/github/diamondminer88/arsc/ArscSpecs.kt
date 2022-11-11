@@ -3,9 +3,7 @@ package com.github.diamondminer88.arsc
 import java.nio.ByteBuffer
 
 public data class ArscSpecs(
-	internal val typeId: UByte,
-	val res0: UByte,
-	val res1: UShort,
+	internal val typeId: UByte = 0u,
 	val specs: List<Spec>,
 ) {
 	public data class Spec(
@@ -28,8 +26,6 @@ public data class ArscSpecs(
 
 			return ArscSpecs(
 				typeId = typeId,
-				res0 = res0,
-				res1 = res1,
 				specs = specs
 			)
 		}
