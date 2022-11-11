@@ -95,15 +95,15 @@ public data class ArscPackage(
 					ArscHeaderType.TableTypeSpec -> {
 						val specs = ArscSpecs.parse(bytes)
 
-						val type = types[specs.typeId.toInt()]
-						assert(type.specs != null) { "Duplicate specs chunk defined for type ${type.name}" }
+						val type = types[specs.typeId.toInt() - 1]
+						assert(type.specs == null) { "Duplicate specs chunk defined for type ${type.name}" }
 
 						type.specs = specs
 					}
 
 					ArscHeaderType.TableType -> {
 						val config = ArscConfig.parse(bytes, globalStringPool)
-						types[config.typeId.toInt()].configs += config
+						types[config.typeId.toInt() - 1].configs += config
 					}
 
 					else -> throw ArscError(

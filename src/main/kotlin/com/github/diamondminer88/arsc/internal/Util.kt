@@ -8,12 +8,26 @@ import java.nio.ByteBuffer
  * This function always reads `SIZE * 2` bytes
  */
 internal fun ByteBuffer.readStringUtf16(size: Int): String {
-	val end = position() + size * 2
-	val bytes = ByteArray(size).also { get(it, 0, size) }
-		.takeWhile { it != (0).toByte() }
-		.toByteArray()
-	val string = String(bytes, Charsets.UTF_16)
+	val bytes = ByteArray(size * 2)
+		.also { get(it, 0, size * 2) }
 
-	position(end)
-	return string
+	val stringBytesSize = run {
+		for (i in 0..(bytes.size - 3)) {
+			if (
+				bytes[i] == 0.toByte() &&
+				bytes[i + 1] == 0.toByte() &&
+				bytes[i + 2] == 0.toByte()
+			) {
+				return@run i + 1
+			}
+		}
+
+		return@run bytes.size
+	}
+
+	val trimmedBytes = bytes
+		.take(stringBytesSize)
+		.toByteArray()
+
+	return String(trimmedBytes, Charsets.UTF_16LE)
 }

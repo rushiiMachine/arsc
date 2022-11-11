@@ -9,7 +9,7 @@ public sealed interface ArscValue {
 		public abstract val type: UByte
 
 		internal companion object {
-			private const val TYPE_STRING = 0x03U
+			private const val TYPE_STRING: UByte = 0x03u
 
 			@JvmStatic
 			fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): Plain {
@@ -18,7 +18,7 @@ public sealed interface ArscValue {
 				val type = bytes.get().toUByte()
 				val data = bytes.int.toUInt()
 
-				return if (type.toUInt() and TYPE_STRING != 0U) {
+				return if (type == TYPE_STRING) {
 					PlainString(
 						size = size,
 						data = globalStringPool.strings[data.toInt()]
