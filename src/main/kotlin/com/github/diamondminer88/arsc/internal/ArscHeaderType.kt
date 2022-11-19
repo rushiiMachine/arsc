@@ -8,7 +8,6 @@ import java.nio.ByteBuffer
  * @param value u16 representation
  */
 internal enum class ArscHeaderType(val value: Short) {
-	Null(0x0000),
 	StringPool(0x0001),
 	Table(0x0002),
 	TablePackage(0x0200),
@@ -19,13 +18,9 @@ internal enum class ArscHeaderType(val value: Short) {
 	companion object {
 		const val SIZE_BYTES = 2
 
-		/**
-		 * Parse a chunk type from the current position in the buffer
-		 */
 		@JvmStatic
 		fun parse(bytes: ByteBuffer): ArscHeaderType {
 			return when (val value = bytes.short) {
-				Null.value -> Null
 				StringPool.value -> StringPool
 				Table.value -> Table
 				TablePackage.value -> TablePackage

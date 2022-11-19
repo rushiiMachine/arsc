@@ -7,12 +7,6 @@ import kotlin.test.assertEquals
 
 class HeaderTypeTest {
 	@Test
-	fun `null test`() {
-		val buffer = bytes(0x00, 0x00)
-		assertEquals(ArscHeaderType.Null, ArscHeaderType.parse(buffer))
-	}
-
-	@Test
 	fun `string pool test`() {
 		val buffer = bytes(0x00, 0x01)
 		assertEquals(ArscHeaderType.StringPool, ArscHeaderType.parse(buffer))
