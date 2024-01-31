@@ -5,11 +5,19 @@ import java.nio.ByteBuffer
 public data class ArscStyle(
 	val spans: List<Span>,
 ) {
+	internal fun size(): Int {
+		return spans.size * Span.BYTES_SIZE + 4
+	}
+
 	public data class Span(
 		val name: String,
 		val start: UInt,
 		val end: UInt,
-	)
+	) {
+		internal companion object {
+			const val BYTES_SIZE = 12
+		}
+	}
 
 	internal companion object {
 		private const val SPAN_END = UInt.MAX_VALUE

@@ -12,8 +12,8 @@ public sealed interface ArscValue {
 
 			@JvmStatic
 			fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): Plain {
-				val size = bytes.short.toUShort()
-				val zero = bytes.get().toUByte()
+				val size = bytes.short // const u16 = 8
+				val zero = bytes.get() // const u8 = 0
 				val type = bytes.get().toUByte()
 				val data = bytes.int.toUInt()
 
@@ -26,6 +26,23 @@ public sealed interface ArscValue {
 						type = type,
 						data = data,
 					)
+				}
+			}
+
+			@JvmStatic
+			fun write(bytes: ByteBuffer, value: Plain, writtenGlobalPool: ArscStringPool.WrittenPool) {
+				bytes.putShort(8) // size
+				bytes.put(0) // zero
+				bytes.put(value.type.toByte()) // type
+
+				when (value) {
+					is PlainRaw -> {
+						bytes.putInt(value.data.toInt())
+					}
+
+					is PlainString -> {
+						bytes.putInt(writtenGlobalPool.strings[value.data]!!)
+					}
 				}
 			}
 		}

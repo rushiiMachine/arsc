@@ -26,6 +26,7 @@ class ArscTest {
 
 		val arsc = assertDoesNotThrow { Arsc(arscFile) }
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
+		File("C:/Users/Fluff/Desktop/arsc.txt").writeText(arsc.toString())
 	}
 
 	@Test

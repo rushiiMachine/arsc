@@ -26,24 +26,7 @@ public data class ArscPackage(
 	var types: MutableMap<ArscTypeName, ArscType>,
 ) {
 	/**
-	 * Gets or creates a new resource type based on the name to modify with [block].
-	 * Generates an ID automatically.
-	 */
-	public fun type(name: ArscTypeName, block: ArscType.() -> Unit) {
-		val type = types.computeIfAbsent(name) {
-			ArscType(
-				id = highestTypeId() + 1U,
-				name = name,
-				configs = mutableListOf(),
-				specs = null,
-			)
-		}
-
-		block(type)
-	}
-
-	/**
-	 * Gets the highest defined type id or 0
+	 * Gets the highest defined type id or defaults to 1
 	 */
 	public fun highestTypeId(): UInt {
 		return types.values

@@ -16,9 +16,6 @@ internal data class ArscHeader(
 	companion object {
 		const val BYTES_SIZE = ArscHeaderType.SIZE_BYTES + 6
 
-		/**
-		 * Parse a chunk header at the current position in the buffer
-		 */
 		@JvmStatic
 		fun parse(bytes: ByteBuffer): ArscHeader {
 			val type = ArscHeaderType.parse(bytes)
@@ -30,6 +27,13 @@ internal data class ArscHeader(
 				headerSize = headerSize,
 				size = bodySize,
 			)
+		}
+
+		@JvmStatic
+		fun write(bytes: ByteBuffer, value: ArscHeader) {
+			ArscHeaderType.write(bytes, value.type)
+			bytes.putShort(value.headerSize.toShort())
+			bytes.putInt(value.size.toInt())
 		}
 	}
 }

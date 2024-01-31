@@ -30,5 +30,10 @@ internal enum class ArscHeaderType(val value: Short) {
 				else -> throw ArscError(bytes.position() - SIZE_BYTES, value, "Invalid header type 0x${value.toString(16)}")
 			}
 		}
+
+		@JvmStatic
+		fun write(bytes: ByteBuffer, value: ArscHeaderType) {
+			bytes.putShort(value.value)
+		}
 	}
 }

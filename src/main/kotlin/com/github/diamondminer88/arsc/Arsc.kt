@@ -26,6 +26,7 @@ public class Arsc {
 	public constructor(bytes: ByteArray) {
 		val buffer = ByteBuffer
 			.wrap(bytes)
+			.asReadOnlyBuffer()
 			.order(ByteOrder.LITTLE_ENDIAN)
 
 		val header = ArscHeader.parse(buffer)
@@ -43,6 +44,56 @@ public class Arsc {
 	 */
 	public constructor(file: File) :
 		this(file.readBytes())
+
+	/**
+	 * Finalizes this Arsc and writes it to file
+	 * @param out The target file to write the modified arsc to
+	 */
+	public fun write(out: File) {
+		out.apply { exists() || createNewFile() }
+			.writeBytes(finalize())
+	}
+
+	/**
+	 * Finalizes this arsc and writes it to a byte array
+	 */
+	public fun finalize(): ByteArray {
+		// global string pool
+		val globalStrings = packages.flatMap { pkg ->
+			pkg.types.values.flatMap { type ->
+				type.configs.flatMap { cfg ->
+					cfg.resources.mapNotNull { rsc ->
+						(rsc.value as? ArscValue.PlainString)?.data
+					}
+				}
+			}
+		}
+		val globalStringPool = ArscStringPool(
+			strings = globalStrings,
+			styles = emptyList(), // TODO: collect styles
+			flags = ArscStringPool.UTF_8_FLAG, // TODO: check rust lib how this is decided
+		)
+
+		// arsc header
+		val size = 0x000C + globalStringPool.size() + pkgs.sumOf { it.size }
+		val header = ArscHeader(
+			type = ArscHeaderType.TableLibrary, // FIXME: correct arsc header type
+			headerSize = 0x000Cu,
+			size = size.toUInt(),
+		)
+
+		val bytes = ByteBuffer.allocate(size)
+
+		ArscHeader.write(bytes, header)
+		val writtenGlobalStringPool = ArscStringPool.write(bytes, globalStringPool)
+
+		// packages
+		for (pkg in packages) {
+			ArscPackage.write(bytes, pkg, writtenGlobalStringPool)
+		}
+
+		return bytes.array()
+	}
 
 	override fun toString(): String {
 		return "Arsc[packages=$packages]"

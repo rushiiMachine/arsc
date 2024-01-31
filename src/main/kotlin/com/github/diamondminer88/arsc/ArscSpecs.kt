@@ -4,8 +4,15 @@ import java.nio.ByteBuffer
 
 public data class ArscSpecs(
 	internal val typeId: UByte = 0u,
-	val specs: List<Spec>,
+	val specs: MutableMap<UInt, Spec>,
 ) {
+	public fun highestSpecId(): UInt {
+		return specs.values
+			.maxByOrNull { it.id }
+			?.id
+			?: 1U
+	}
+
 	public data class Spec(
 		val id: UInt,
 		val flags: UInt,
@@ -26,7 +33,7 @@ public data class ArscSpecs(
 
 			return ArscSpecs(
 				typeId = typeId,
-				specs = specs
+				specs = specs.associateBy { it.id }.toMutableMap()
 			)
 		}
 	}
