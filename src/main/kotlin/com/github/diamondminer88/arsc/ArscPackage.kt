@@ -35,12 +35,13 @@ public data class ArscPackage(
 			?: 1U
 	}
 
-	internal companion object {
+	@ArscInternalApi
+	public companion object {
 		/**
 		 * Parse an arsc package at the current position in the buffer
 		 */
 		@JvmStatic
-		fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): ArscPackage {
+		public fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): ArscPackage {
 			val header = ArscHeader.parse(bytes)
 			assert(header.type == ArscHeaderType.TablePackage) { "Parsed package header contains an invalid type" }
 

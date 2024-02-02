@@ -9,11 +9,12 @@ public sealed interface ArscValue {
 	public abstract class Plain : ArscValue {
 		public abstract val type: UByte
 
-		internal companion object {
+		public companion object {
 			private const val TYPE_STRING: UByte = 0x03u
 
 			@JvmStatic
-			fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): Plain {
+			@ArscInternalApi
+			public fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): Plain {
 				val size = bytes.readU16() // const u16 = 8
 				val zero = bytes.readU8() // const u8 = 0
 				val type = bytes.readU8()
@@ -32,7 +33,8 @@ public sealed interface ArscValue {
 			}
 
 			@JvmStatic
-			fun write(bytes: ByteBuffer, value: Plain, writtenGlobalPool: ArscStringPool.WrittenPool) {
+			@ArscInternalApi
+			public fun write(bytes: ByteBuffer, value: Plain, writtenGlobalPool: ArscStringPool.WrittenPool) {
 				bytes.putShort(8) // size
 				bytes.put(0) // zero
 				bytes.put(value.type.toByte()) // type

@@ -6,8 +6,10 @@ import java.nio.ByteBuffer
 public data class ArscStyle(
 	val spans: List<Span>,
 ) {
-	internal fun size(): Int {
-		return spans.size * Span.BYTES_SIZE + 4
+	/** Size of this data structure in bytes. */
+	public fun size(): Int {
+		return (spans.size * Span.size()) +
+			UInt.SIZE_BYTES // SPAN_END
 	}
 
 	public data class Span(
@@ -15,16 +17,22 @@ public data class ArscStyle(
 		val start: UInt,
 		val end: UInt,
 	) {
-		internal companion object {
-			const val BYTES_SIZE = 12
+		public companion object {
+			/** Size of the full data structure in bytes. */
+			public fun size(): Int = UInt.SIZE_BYTES * 3 // name, start, end
 		}
 	}
 
-	internal companion object {
+	@ArscInternalApi
+	public companion object {
+		/**
+		 * If a name of a parsed span is this value then it is the terminator
+		 * of the spans list and should immediately stop parsing the rest of the span.
+		 */
 		private const val SPAN_END = UInt.MAX_VALUE
 
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscStyle {
+		public fun parse(bytes: ByteBuffer): ArscStyle {
 			val spans = mutableListOf<Span>()
 
 			while (true) {
@@ -39,7 +47,7 @@ public data class ArscStyle(
 
 				spans += Span(
 					// name = name,
-					name = "", // TODO: here
+					name = "", // TODO: retrieve string from string pool
 					start = start,
 					end = end
 				)

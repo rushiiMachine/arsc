@@ -2,15 +2,18 @@ package com.github.diamondminer88.arsc.internal
 
 import com.github.diamondminer88.arsc.ArscError
 import com.github.diamondminer88.arsc.ArscStyle
+import com.github.diamondminer88.arsc.ArscInternalApi
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 
-internal data class ArscStringPool(
+@ArscInternalApi
+public data class ArscStringPool(
 	val strings: List<String>,
 	val styles: List<ArscStyle>,
 	val flags: UInt,
 ) {
-	fun size(): Int {
+	/** Size of this entire data structure in bytes. */
+	public fun size(): Int {
 		var size = 0
 		size += ArscHeader.size() // header
 		size += 5 * 4 // stringsCount, stylesCount, flags, stringsOffset, stylesOffset
@@ -33,17 +36,17 @@ internal data class ArscStringPool(
 		return size
 	}
 
-	data class WrittenPool(
+	public data class WrittenPool(
 		// mapped to item -> id/index
 		val strings: Map<String, Int>,
 		val styles: Map<ArscStyle, Int>,
 	)
 
-	companion object {
-		val UTF_8_FLAG = 0x00000100.toUInt()
+	public companion object {
+		public val UTF_8_FLAG: UInt = 0x00000100u
 
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscStringPool {
+		public fun parse(bytes: ByteBuffer): ArscStringPool {
 			val startPos = bytes.position()
 
 			val header = ArscHeader.parse(bytes)
@@ -136,7 +139,7 @@ internal data class ArscStringPool(
 		}
 
 		@JvmStatic
-		fun write(bytes: ByteBuffer, pool: ArscStringPool): WrittenPool {
+		public fun write(bytes: ByteBuffer, pool: ArscStringPool): WrittenPool {
 			val startPos = bytes.position()
 
 			bytes.putNullBytes(ArscHeader.size()) // blank header for now
@@ -155,7 +158,7 @@ internal data class ArscStringPool(
 
 			// style offsets
 			for ((i, style) in pool.styles.iterator().withIndex()) {
-				bytes.putInt(i * (style.spans.size * ArscStyle.Span.BYTES_SIZE + 4))
+				bytes.putInt(i * (style.spans.size * ArscStyle.Span.size() + 4))
 			}
 
 			// strings

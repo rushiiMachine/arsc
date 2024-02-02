@@ -10,16 +10,17 @@ import java.nio.ByteBuffer
  * @param resources The actual resource data
  */
 public data class ArscConfig(
-	internal val typeId: UByte = 0u,
+	val typeId: UByte = 0u,
 	val configId: ConfigId,
 	var resources: MutableList<ArscResource>,
 ) {
-	internal companion object {
+	@ArscInternalApi
+	public companion object {
 		/**
 		 * Read a resource config from the current position in the buffer
 		 */
 		@JvmStatic
-		fun parse(
+		public fun parse(
 			bytes: ByteBuffer,
 			globalStringPool: ArscStringPool,
 			keyStringPool: ArscStringPool,
@@ -43,12 +44,13 @@ public data class ArscConfig(
 	public data class ConfigId(
 		public var data: UByteArray,
 	) {
-		internal companion object {
+		@ArscInternalApi
+		public companion object {
 			/**
 			 * Reads a config id from the current position in the buffer
 			 */
 			@JvmStatic
-			fun parse(bytes: ByteBuffer): ConfigId {
+			public fun parse(bytes: ByteBuffer): ConfigId {
 				val size = bytes.readU32()
 				bytes.position(bytes.position() - 4)
 

@@ -1,13 +1,15 @@
 package com.github.diamondminer88.arsc.internal
 
 import com.github.diamondminer88.arsc.ArscError
+import com.github.diamondminer88.arsc.ArscInternalApi
 import java.nio.ByteBuffer
 
 /**
  * A parsed chunk type
- * @param value Internal u16 representation.
+ * @param value The raw value this enum value represents.
  */
-internal enum class ArscHeaderType(val value: UShort) {
+@ArscInternalApi
+public enum class ArscHeaderType(public val value: UShort) {
 	StringPool(0x0001u),
 	Table(0x0002u),
 	TablePackage(0x0200u),
@@ -15,13 +17,13 @@ internal enum class ArscHeaderType(val value: UShort) {
 	TableTypeSpec(0x0202u),
 	TableLibrary(0x0203u);
 
-	companion object {
+	public companion object {
 		/** Size of this data structure in bytes. */
 		@JvmStatic
-		fun size(): Int = UShort.SIZE_BYTES
+		public fun size(): Int = UShort.SIZE_BYTES
 
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscHeaderType {
+		public fun parse(bytes: ByteBuffer): ArscHeaderType {
 			return when (val value = bytes.readU16()) {
 				StringPool.value -> StringPool
 				Table.value -> Table
@@ -34,7 +36,7 @@ internal enum class ArscHeaderType(val value: UShort) {
 		}
 
 		@JvmStatic
-		fun write(bytes: ByteBuffer, value: ArscHeaderType) {
+		public fun write(bytes: ByteBuffer, value: ArscHeaderType) {
 			bytes.putShort(value.value.toShort())
 		}
 	}

@@ -10,6 +10,7 @@ kotlin {
 
 	compilerOptions.freeCompilerArgs.addAll(
 		"-opt-in=kotlin.ExperimentalUnsignedTypes",
+		"-opt-in=com.github.diamondminer88.arsc.ArscInternalApi"
 	)
 }
 

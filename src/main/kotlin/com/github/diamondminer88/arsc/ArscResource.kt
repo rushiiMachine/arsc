@@ -4,16 +4,17 @@ import com.github.diamondminer88.arsc.internal.*
 import java.nio.ByteBuffer
 
 public data class ArscResource(
-	internal val specId: UInt = 0u,
+	val specId: UInt = 0u,
 	val flags: UShort,
 	val name: String,
 	val value: ArscValue,
 ) {
-	internal companion object {
+	@ArscInternalApi
+	public companion object {
 		private const val FLAG_COMPLEX: UShort = 0x0001u
 
 		@JvmStatic
-		fun parse(
+		public fun parse(
 			bytes: ByteBuffer,
 			resourceCount: Int,
 			globalStringPool: ArscStringPool,

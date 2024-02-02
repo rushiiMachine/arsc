@@ -4,7 +4,7 @@ import com.github.diamondminer88.arsc.internal.*
 import java.nio.ByteBuffer
 
 public data class ArscSpecs(
-	internal val typeId: UByte = 0u,
+	val typeId: UByte = 0u,
 	val specs: MutableMap<UInt, Spec>,
 ) {
 	public fun highestSpecId(): UInt {
@@ -19,9 +19,10 @@ public data class ArscSpecs(
 		val flags: UInt,
 	)
 
-	internal companion object {
+	@ArscInternalApi
+	public companion object {
 		@JvmStatic
-		fun parse(bytes: ByteBuffer): ArscSpecs {
+		public fun parse(bytes: ByteBuffer): ArscSpecs {
 			val typeId = bytes.readU8()
 			val res0 = bytes.readU8()
 			val res1 = bytes.readU16()
