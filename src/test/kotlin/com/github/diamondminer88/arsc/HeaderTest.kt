@@ -19,6 +19,6 @@ class HeaderTest {
 
 		assertEquals(ArscHeaderType.StringPool, header.type)
 		assertEquals(8u, header.headerSize)
-		assertEquals(127U, header.size)
+		assertEquals(127U, header.bodySize)
 	}
 }

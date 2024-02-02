@@ -1,9 +1,15 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.diamondminer88.arsc.internal
 
 import java.nio.ByteBuffer
 
-internal fun ByteBuffer.putNulls(length: Int) {
-	for (i in 0 until length)
+internal inline fun ByteBuffer.readU8(): UByte = get().toUByte()
+internal inline fun ByteBuffer.readU16(): UShort = getShort().toUShort()
+internal inline fun ByteBuffer.readU32(): UInt = getInt().toUInt()
+
+internal fun ByteBuffer.putNullBytes(amount: Int) {
+	for (i in 0..<amount)
 		put(0)
 }
 
@@ -47,5 +53,12 @@ internal fun ByteBuffer.putStringUtf16(string: String, outSize: Int) {
 	println("putStringUtf16: $bytes")
 
 	put(bytes)
-	putNulls(fillCount)
+	putNullBytes(fillCount)
 }
+
+/**
+ * Shift this value left by the [bitCount] number of bits.
+ * Based on a copy of [UInt.shl]
+ */
+@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+internal infix fun UShort.shl(bitCount: Int): UShort = UShort((data.toUInt() shl bitCount).toShort())

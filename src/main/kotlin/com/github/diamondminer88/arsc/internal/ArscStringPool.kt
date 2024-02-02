@@ -1,5 +1,6 @@
 package com.github.diamondminer88.arsc.internal
 
+import com.github.diamondminer88.arsc.ArscError
 import com.github.diamondminer88.arsc.ArscStyle
 import java.nio.ByteBuffer
 import kotlin.experimental.and
@@ -11,7 +12,7 @@ internal data class ArscStringPool(
 ) {
 	fun size(): Int {
 		var size = 0
-		size += ArscHeader.BYTES_SIZE // header
+		size += ArscHeader.size() // header
 		size += 5 * 4 // stringsCount, stylesCount, flags, stringsOffset, stylesOffset
 		size += strings.size * 4 // stringsOffsets
 		size += styles.size * 4 // stylesOffsets
@@ -48,14 +49,14 @@ internal data class ArscStringPool(
 			val header = ArscHeader.parse(bytes)
 			assert(header.type == ArscHeaderType.StringPool) { "Invalid header type ${header.type} when parsing string pool" }
 
-			val stringsCount = bytes.int.toUInt()
-			val stylesCount = bytes.int.toUInt()
-			val flags = bytes.int.toUInt()
-			val stringsOffset = bytes.int.toUInt()
-			val stylesOffset = bytes.int.toUInt()
+			val stringsCount = bytes.readU32()
+			val stylesCount = bytes.readU32()
+			val flags = bytes.readU32()
+			val stringsOffset = bytes.readU32()
+			val stylesOffset = bytes.readU32()
 
-			val offsets = Array(stringsCount.toInt()) { bytes.int.toUInt() }
-			val styleOffsets = Array(stylesCount.toInt()) { bytes.int.toUInt() }
+			val offsets = Array(stringsCount.toInt()) { bytes.readU32() }
+			val styleOffsets = Array(stylesCount.toInt()) { bytes.readU32() }
 
 			val useUTF8 = flags and UTF_8_FLAG != 0U
 			val strings = List(stringsCount.toInt()) {
@@ -80,13 +81,14 @@ internal data class ArscStringPool(
 		}
 
 		private fun readUtf8Length(bytes: ByteBuffer): UShort {
-			val length = bytes.get().toUByte()
+			val length = bytes.readU8().toUShort()
 
-			return if (length.toInt() and 0x80 != 0) {
-				val length2 = bytes.get().toUByte()
-				(((length and 0x7FU).toUInt() shl 8) or length2.toUInt()).toUShort()
+			return if (length and 0x80u > 0u) {
+				val length2 = bytes.readU8().toUShort()
+
+				((length and 0x7Fu) shl 8) or length2
 			} else {
-				length.toUShort()
+				length
 			}
 		}
 
@@ -121,8 +123,14 @@ internal data class ArscStringPool(
 				.also { bytes.get(it, 0, byteCount.toInt() * 2) }
 				.let { String(it, Charsets.UTF_16LE) }
 
-			val nullTerminator = bytes.short
-			assert(nullTerminator.toInt() == 0x0000) { "invalid utf16 string terminator" }
+			val nullTerminator = bytes.readU16()
+			if (nullTerminator.toInt() != 0) {
+				throw ArscError(
+					bytes.position() - UShort.SIZE_BYTES,
+					nullTerminator,
+					"Invalid UTF16LE string NULL terminator"
+				)
+			}
 
 			return string
 		}
@@ -131,7 +139,7 @@ internal data class ArscStringPool(
 		fun write(bytes: ByteBuffer, pool: ArscStringPool): WrittenPool {
 			val startPos = bytes.position()
 
-			bytes.putNulls(ArscHeader.BYTES_SIZE) // blank header for now
+			bytes.putNullBytes(ArscHeader.size()) // blank header for now
 			bytes.putInt(pool.strings.size) // strings count
 			bytes.putInt(pool.styles.size) // styles count
 			bytes.putInt(pool.flags.toInt()) // pool flags
@@ -141,7 +149,7 @@ internal data class ArscStringPool(
 			bytes.putInt(0) // tmp styles offset
 
 			// string offsets
-			for (i in 0 until pool.strings.size) {
+			for (i in 0..<pool.strings.size) {
 				bytes.putInt(i * 4)
 			}
 
@@ -162,7 +170,7 @@ internal data class ArscStringPool(
 
 			// alignment
 			if (bytes.position() % 4 > 0) {
-				bytes.putNulls(4 - (bytes.position() % 4))
+				bytes.putNullBytes(4 - (bytes.position() % 4))
 			}
 
 			// styles
@@ -179,7 +187,7 @@ internal data class ArscStringPool(
 			val header = ArscHeader(
 				type = ArscHeaderType.StringPool,
 				headerSize = 0x001Cu, // const
-				size = (endPos - startPos).toUInt()
+				bodySize = (endPos - startPos).toUInt()
 			)
 			bytes.position(startPos)
 			ArscHeader.write(bytes, header)
@@ -215,11 +223,11 @@ internal data class ArscStringPool(
 		private fun putUtf16Length(bytes: ByteBuffer, length: UInt) {
 			if (length > 0x7FFFu) {
 				val leading2 = (length.toInt() ushr 16) or 0x8000
-				bytes.put((leading2 and 0xFF).toByte())
+				bytes.put(leading2.toByte())
 				bytes.put((leading2 ushr 8).toByte())
 			}
-			bytes.put((length and 0xFFu).toByte())
-			bytes.put(((length.toInt() ushr 8) and 0xFF).toByte())
+			bytes.put(length.toByte())
+			bytes.put((length.toInt() ushr 8).toByte())
 		}
 
 		private fun putUtf16String(bytes: ByteBuffer, string: String) {

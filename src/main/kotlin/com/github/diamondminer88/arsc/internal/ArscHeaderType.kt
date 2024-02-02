@@ -4,36 +4,38 @@ import com.github.diamondminer88.arsc.ArscError
 import java.nio.ByteBuffer
 
 /**
- * The parsed chunk type
- * @param value u16 representation
+ * A parsed chunk type
+ * @param value Internal u16 representation.
  */
-internal enum class ArscHeaderType(val value: Short) {
-	StringPool(0x0001),
-	Table(0x0002),
-	TablePackage(0x0200),
-	TableType(0x0201),
-	TableTypeSpec(0x0202),
-	TableLibrary(0x0203);
+internal enum class ArscHeaderType(val value: UShort) {
+	StringPool(0x0001u),
+	Table(0x0002u),
+	TablePackage(0x0200u),
+	TableType(0x0201u),
+	TableTypeSpec(0x0202u),
+	TableLibrary(0x0203u);
 
 	companion object {
-		const val SIZE_BYTES = 2
+		/** Size of this data structure in bytes. */
+		@JvmStatic
+		fun size(): Int = UShort.SIZE_BYTES
 
 		@JvmStatic
 		fun parse(bytes: ByteBuffer): ArscHeaderType {
-			return when (val value = bytes.short) {
+			return when (val value = bytes.readU16()) {
 				StringPool.value -> StringPool
 				Table.value -> Table
 				TablePackage.value -> TablePackage
 				TableType.value -> TableType
 				TableTypeSpec.value -> TableTypeSpec
 				TableLibrary.value -> TableLibrary
-				else -> throw ArscError(bytes.position() - SIZE_BYTES, value, "Invalid header type 0x${value.toString(16)}")
+				else -> throw ArscError(bytes.position() - size(), value, "Invalid header type 0x${value.toString(16)}")
 			}
 		}
 
 		@JvmStatic
 		fun write(bytes: ByteBuffer, value: ArscHeaderType) {
-			bytes.putShort(value.value)
+			bytes.putShort(value.value.toShort())
 		}
 	}
 }

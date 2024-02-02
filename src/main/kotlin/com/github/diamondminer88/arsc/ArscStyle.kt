@@ -1,5 +1,6 @@
 package com.github.diamondminer88.arsc
 
+import com.github.diamondminer88.arsc.internal.readU32
 import java.nio.ByteBuffer
 
 public data class ArscStyle(
@@ -27,14 +28,14 @@ public data class ArscStyle(
 			val spans = mutableListOf<Span>()
 
 			while (true) {
-				val name = bytes.int.toUInt()
+				val name = bytes.readU32()
 
 				if (name == SPAN_END) {
 					break
 				}
 
-				val start = bytes.int.toUInt()
-				val end = bytes.int.toUInt()
+				val start = bytes.readU32()
+				val end = bytes.readU32()
 
 				spans += Span(
 					// name = name,

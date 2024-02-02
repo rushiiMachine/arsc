@@ -7,6 +7,10 @@ version = "1.0.0"
 
 kotlin {
 	explicitApi()
+
+	compilerOptions.freeCompilerArgs.addAll(
+		"-opt-in=kotlin.ExperimentalUnsignedTypes",
+	)
 }
 
 tasks.test {

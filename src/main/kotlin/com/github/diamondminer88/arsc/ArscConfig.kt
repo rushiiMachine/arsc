@@ -1,6 +1,6 @@
 package com.github.diamondminer88.arsc
 
-import com.github.diamondminer88.arsc.internal.ArscStringPool
+import com.github.diamondminer88.arsc.internal.*
 import java.nio.ByteBuffer
 
 /**
@@ -24,11 +24,11 @@ public data class ArscConfig(
 			globalStringPool: ArscStringPool,
 			keyStringPool: ArscStringPool,
 		): ArscConfig {
-			val typeId = bytes.get().toUByte()
-			val res0 = bytes.get().toUByte()
-			val res1 = bytes.short.toUShort()
-			val resourceCount = bytes.int.toUInt()
-			val resourcesStart = bytes.int.toUInt()
+			val typeId = bytes.readU8()
+			val res0 = bytes.readU8()
+			val res1 = bytes.readU16()
+			val resourceCount = bytes.readU32()
+			val resourcesStart = bytes.readU32()
 			val configId = ConfigId.parse(bytes)
 			val resources = ArscResource.parse(bytes, resourceCount.toInt(), globalStringPool, keyStringPool)
 
@@ -41,34 +41,34 @@ public data class ArscConfig(
 	}
 
 	public data class ConfigId(
-		public var data: ByteArray,
+		public var data: UByteArray,
 	) {
-		override fun equals(other: Any?): Boolean {
-			if (this === other) return true
-			if (javaClass != other?.javaClass) return false
-			other as ConfigId
-			if (!data.contentEquals(other.data)) return false
-			return true
-		}
-
-		override fun hashCode(): Int {
-			return data.contentHashCode()
-		}
-
 		internal companion object {
 			/**
 			 * Reads a config id from the current position in the buffer
 			 */
 			@JvmStatic
 			fun parse(bytes: ByteBuffer): ConfigId {
-				val size = bytes.int.toUInt()
+				val size = bytes.readU32()
 				bytes.position(bytes.position() - 4)
 
 				val idBytes = ByteArray(size.toInt())
 					.also { bytes.get(it, 0, size.toInt()) }
+					.toUByteArray()
 
 				return ConfigId(idBytes)
 			}
 		}
+
+		override fun equals(other: Any?): Boolean {
+			if (this === other) return true
+			if (other !is ConfigId) return false
+
+			if (!data.contentEquals(other.data)) return false
+
+			return true
+		}
+
+		override fun hashCode(): Int = data.contentHashCode()
 	}
 }

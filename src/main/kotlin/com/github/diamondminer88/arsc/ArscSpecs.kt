@@ -1,5 +1,6 @@
 package com.github.diamondminer88.arsc
 
+import com.github.diamondminer88.arsc.internal.*
 import java.nio.ByteBuffer
 
 public data class ArscSpecs(
@@ -21,13 +22,13 @@ public data class ArscSpecs(
 	internal companion object {
 		@JvmStatic
 		fun parse(bytes: ByteBuffer): ArscSpecs {
-			val typeId = bytes.get().toUByte()
-			val res0 = bytes.get().toUByte()
-			val res1 = bytes.short.toUShort()
-			val specCount = bytes.int.toUInt()
+			val typeId = bytes.readU8()
+			val res0 = bytes.readU8()
+			val res1 = bytes.readU16()
+			val specCount = bytes.readU32()
 
-			val specs = (0 until specCount.toInt())
-				.map { id -> Spec(id.toUInt(), bytes.int.toUInt()) }
+			val specs = (0u..<specCount)
+				.map { id -> Spec(id, bytes.readU32()) }
 
 			assert(specs.isNotEmpty()) { "specs cannot be empty" }
 

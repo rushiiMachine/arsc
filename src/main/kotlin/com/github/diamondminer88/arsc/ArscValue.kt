@@ -1,6 +1,8 @@
 package com.github.diamondminer88.arsc
 
+import com.github.diamondminer88.arsc.internal.*
 import com.github.diamondminer88.arsc.internal.ArscStringPool
+import com.github.diamondminer88.arsc.internal.readU32
 import java.nio.ByteBuffer
 
 public sealed interface ArscValue {
@@ -12,10 +14,10 @@ public sealed interface ArscValue {
 
 			@JvmStatic
 			fun parse(bytes: ByteBuffer, globalStringPool: ArscStringPool): Plain {
-				val size = bytes.short // const u16 = 8
-				val zero = bytes.get() // const u8 = 0
-				val type = bytes.get().toUByte()
-				val data = bytes.int.toUInt()
+				val size = bytes.readU16() // const u16 = 8
+				val zero = bytes.readU8() // const u8 = 0
+				val type = bytes.readU8()
+				val data = bytes.readU32()
 
 				return if (type == TYPE_STRING) {
 					PlainString(

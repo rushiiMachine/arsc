@@ -1,6 +1,6 @@
 package com.github.diamondminer88.arsc
 
-import com.github.diamondminer88.arsc.internal.ArscStringPool
+import com.github.diamondminer88.arsc.internal.*
 import java.nio.ByteBuffer
 
 public data class ArscResource(
@@ -10,7 +10,7 @@ public data class ArscResource(
 	val value: ArscValue,
 ) {
 	internal companion object {
-		private const val FLAG_COMPLEX = 0x0001u
+		private const val FLAG_COMPLEX: UShort = 0x0001u
 
 		@JvmStatic
 		fun parse(
@@ -19,8 +19,8 @@ public data class ArscResource(
 			globalStringPool: ArscStringPool,
 			keyStringPool: ArscStringPool,
 		): MutableList<ArscResource> {
-			val entries = (0 until resourceCount)
-				.map { bytes.int.toUInt() }
+			val entries = (0..<resourceCount)
+				.map { bytes.readU32() }
 
 			val resources = mutableListOf<ArscResource>()
 
@@ -28,14 +28,14 @@ public data class ArscResource(
 				if (entry == UInt.MAX_VALUE)
 					return@forEachIndexed
 
-				val size = bytes.short.toUShort()
-				val flags = bytes.short.toUShort()
-				val nameIndex = bytes.int.toUInt()
-				val value = if (flags.toUInt() and FLAG_COMPLEX != 0U) {
-					val parent = bytes.int.toUInt()
-					val count = bytes.int.toUInt()
-					val values = (0 until count.toInt()).associate {
-						val index = bytes.int.toUInt()
+				val size = bytes.readU16()
+				val flags = bytes.readU16()
+				val nameIndex = bytes.readU32()
+				val value = if (flags and FLAG_COMPLEX != 0.toUShort()) {
+					val parent = bytes.readU32()
+					val count = bytes.readU32()
+					val values = (0..<count.toInt()).associate {
+						val index = bytes.readU32()
 						val value = ArscValue.Plain.parse(bytes, globalStringPool)
 						index to value
 					}

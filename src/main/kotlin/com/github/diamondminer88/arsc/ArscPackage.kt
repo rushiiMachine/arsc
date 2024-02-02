@@ -44,14 +44,14 @@ public data class ArscPackage(
 			val header = ArscHeader.parse(bytes)
 			assert(header.type == ArscHeaderType.TablePackage) { "Parsed package header contains an invalid type" }
 
-			val packageId = bytes.int.toUInt()
+			val packageId = bytes.readU32()
 			val packageName = bytes.readStringUtf16(size = 128)
 
-			val typeStringsOffset = bytes.int.toUInt()
-			val lastPublicType = bytes.int.toUInt()
-			val keyStringOffset = bytes.int.toUInt()
-			val lastPublicKey = bytes.int.toUInt()
-			val typeIdsOffset = bytes.int.toUInt()
+			bytes.readU32() // typeStringsOffset
+			bytes.readU32() // lastPublicType
+			bytes.readU32() // keyStringOffset
+			bytes.readU32() // lastPublicKey
+			bytes.readU32() // typeIdsOffset
 
 			val typeNames = ArscStringPool.parse(bytes)
 			val keyNames = ArscStringPool.parse(bytes)
@@ -90,7 +90,7 @@ public data class ArscPackage(
 					}
 
 					else -> throw ArscError(
-						startPos - ArscHeader.BYTES_SIZE,
+						startPos - ArscHeader.size(),
 						chunkHeader.type,
 						"Unexpected chunk type in typeIds section of package $packageName"
 					)

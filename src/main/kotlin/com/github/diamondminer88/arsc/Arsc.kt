@@ -30,7 +30,7 @@ public class Arsc {
 			.order(ByteOrder.LITTLE_ENDIAN)
 
 		val header = ArscHeader.parse(buffer)
-		val packageCount = buffer.int.toUInt()
+		val packageCount = buffer.readU32()
 		val globalStringPool = ArscStringPool.parse(buffer)
 		val packages = MutableList(packageCount.toInt()) {
 			ArscPackage.parse(buffer, globalStringPool)
@@ -75,11 +75,12 @@ public class Arsc {
 		)
 
 		// arsc header
-		val size = 0x000C + globalStringPool.size() + pkgs.sumOf { it.size }
+		// val size = 0x000C + globalStringPool.size() + pkgs.sumOf { it.size }
+		val size = 0x000C + globalStringPool.size() + 0
 		val header = ArscHeader(
 			type = ArscHeaderType.TableLibrary, // FIXME: correct arsc header type
 			headerSize = 0x000Cu,
-			size = size.toUInt(),
+			bodySize = size.toUInt(),
 		)
 
 		val bytes = ByteBuffer.allocate(size)
@@ -89,7 +90,7 @@ public class Arsc {
 
 		// packages
 		for (pkg in packages) {
-			ArscPackage.write(bytes, pkg, writtenGlobalStringPool)
+			// ArscPackage.write(bytes, pkg, writtenGlobalStringPool)
 		}
 
 		return bytes.array()
