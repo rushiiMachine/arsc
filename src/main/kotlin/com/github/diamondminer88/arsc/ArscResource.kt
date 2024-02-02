@@ -1,8 +1,10 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.*
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
+@NoCopy
 public data class ArscResource(
 	val specId: UInt = 0u,
 	val flags: UShort,

@@ -1,5 +1,8 @@
 package com.github.diamondminer88.arsc
 
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
+
+@NoCopy
 public data class ArscType(
 	var id: UInt,
 	var name: ArscTypeName,

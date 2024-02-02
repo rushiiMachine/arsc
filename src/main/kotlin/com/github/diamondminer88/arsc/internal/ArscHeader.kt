@@ -1,6 +1,7 @@
 package com.github.diamondminer88.arsc.internal
 
 import com.github.diamondminer88.arsc.ArscInternalApi
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
 /**
@@ -9,6 +10,7 @@ import java.nio.ByteBuffer
  * @param headerSize u16 header size
  * @param bodySize u64 body size
  */
+@NoCopy
 @ArscInternalApi
 public data class ArscHeader(
 	val type: ArscHeaderType,

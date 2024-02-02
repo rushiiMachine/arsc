@@ -1,8 +1,7 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.*
-import com.github.diamondminer88.arsc.internal.ArscStringPool
-import com.github.diamondminer88.arsc.internal.readU32
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
 public sealed interface ArscValue {
@@ -52,17 +51,20 @@ public sealed interface ArscValue {
 		}
 	}
 
+	@NoCopy
 	public data class PlainRaw(
 		override val type: UByte,
 		val data: UInt,
 	) : Plain()
 
+	@NoCopy
 	public data class PlainString(
 		val data: String,
 	) : Plain() {
 		override val type: UByte = 0x3U
 	}
 
+	@NoCopy
 	public data class Bag(
 		val parent: UInt,
 		val values: Map<UInt, Plain>,

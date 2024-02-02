@@ -1,6 +1,7 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.*
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
 /**
@@ -9,6 +10,7 @@ import java.nio.ByteBuffer
  * @param configId The id of this config
  * @param resources The actual resource data
  */
+@NoCopy
 public data class ArscConfig(
 	val typeId: UByte = 0u,
 	val configId: ConfigId,
@@ -41,6 +43,7 @@ public data class ArscConfig(
 		}
 	}
 
+	@NoCopy
 	public data class ConfigId(
 		public var data: UByteArray,
 	) {

@@ -3,12 +3,14 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.*
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
 /**
  * Representing a package in the arsc.
  * Usually, only one exists per APK, however the format defines that there can be more.
  */
+@NoCopy
 public data class ArscPackage(
 	/**
 	 * u32 id of the package

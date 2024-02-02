@@ -1,8 +1,10 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.readU32
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
+@NoCopy
 public data class ArscStyle(
 	val spans: List<Span>,
 ) {
@@ -12,6 +14,7 @@ public data class ArscStyle(
 			UInt.SIZE_BYTES // SPAN_END
 	}
 
+	@NoCopy
 	public data class Span(
 		val name: String,
 		val start: UInt,

@@ -1,11 +1,11 @@
 package com.github.diamondminer88.arsc.internal
 
-import com.github.diamondminer88.arsc.ArscError
-import com.github.diamondminer88.arsc.ArscStyle
-import com.github.diamondminer88.arsc.ArscInternalApi
+import com.github.diamondminer88.arsc.*
+import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 
+@NoCopy
 @ArscInternalApi
 public data class ArscStringPool(
 	val strings: List<String>,
@@ -36,6 +36,7 @@ public data class ArscStringPool(
 		return size
 	}
 
+	@NoCopy
 	public data class WrittenPool(
 		// mapped to item -> id/index
 		val strings: Map<String, Int>,
