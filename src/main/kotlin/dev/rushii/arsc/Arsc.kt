@@ -1,8 +1,8 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
-import com.github.diamondminer88.arsc.internal.*
+import dev.rushii.arsc.internal.*
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -101,5 +101,5 @@ public class Arsc {
 	}
 }
 
-public class ArscError(position: Int, value: Any, message: String) :
+public class ArscError(position: Int, value: Any?, message: String) :
 	Error("Failed to parse arsc at index $position, value $value: $message")

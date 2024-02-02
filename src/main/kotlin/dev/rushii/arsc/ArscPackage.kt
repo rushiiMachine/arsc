@@ -1,8 +1,8 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
-import com.github.diamondminer88.arsc.internal.*
+import dev.rushii.arsc.internal.*
 import java.nio.ByteBuffer
 
 /**

@@ -1,6 +1,6 @@
-package com.github.diamondminer88.arsc.internal
+package dev.rushii.arsc.internal
 
-import com.github.diamondminer88.arsc.*
+import dev.rushii.arsc.*
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 

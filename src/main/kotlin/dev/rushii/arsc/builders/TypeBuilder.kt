@@ -1,6 +1,6 @@
-package com.github.diamondminer88.arsc.builders
+package dev.rushii.arsc.builders
 
-import com.github.diamondminer88.arsc.*
+import dev.rushii.arsc.*
 
 /**
  * Gets or creates a new resource type based on the name to modify with [block].
@@ -39,7 +39,7 @@ public fun ArscType.spec(id: UInt? = null, block: ArscSpecs.Spec.() -> Unit): Ar
 	val targetId = (id ?: specs.highestSpecId()) + 1U
 
 	val spec = specs.specs.computeIfAbsent(targetId) {
-		ArscSpecs.Spec(
+		dev.rushii.arsc.ArscSpecs.Spec(
 			id = targetId,
 			flags = 0u,
 		)

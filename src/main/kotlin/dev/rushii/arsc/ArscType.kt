@@ -1,4 +1,4 @@
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
 public data class ArscType(
 	var id: UInt,

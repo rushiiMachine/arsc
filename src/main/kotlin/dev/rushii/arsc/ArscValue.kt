@@ -1,8 +1,6 @@
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
-import com.github.diamondminer88.arsc.internal.*
-import com.github.diamondminer88.arsc.internal.ArscStringPool
-import com.github.diamondminer88.arsc.internal.readU32
+import dev.rushii.arsc.internal.*
 import java.nio.ByteBuffer
 
 public sealed interface ArscValue {

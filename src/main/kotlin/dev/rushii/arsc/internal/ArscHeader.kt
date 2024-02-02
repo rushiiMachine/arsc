@@ -1,6 +1,6 @@
-package com.github.diamondminer88.arsc.internal
+package dev.rushii.arsc.internal
 
-import com.github.diamondminer88.arsc.ArscInternalApi
+import dev.rushii.arsc.ArscInternalApi
 import java.nio.ByteBuffer
 
 /**

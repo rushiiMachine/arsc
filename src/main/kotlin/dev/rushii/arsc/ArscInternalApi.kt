@@ -1,4 +1,4 @@
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
 @RequiresOptIn(
 	level = RequiresOptIn.Level.ERROR,

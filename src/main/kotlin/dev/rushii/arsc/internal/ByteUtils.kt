@@ -1,8 +1,8 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.github.diamondminer88.arsc.internal
+package dev.rushii.arsc.internal
 
-import com.github.diamondminer88.arsc.ArscError
+import dev.rushii.arsc.ArscError
 import java.nio.ByteBuffer
 
 internal inline fun ByteBuffer.readU8(): UByte = get().toUByte()

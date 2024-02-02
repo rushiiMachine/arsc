@@ -1,4 +1,4 @@
-package com.github.diamondminer88.arsc
+package dev.rushii.arsc
 
 import org.junit.jupiter.api.assertDoesNotThrow
 import java.io.File
