@@ -46,7 +46,7 @@ public data class ArscPackage(
 			assert(header.type == ArscHeaderType.TablePackage) { "Parsed package header contains an invalid type" }
 
 			val packageId = bytes.readU32()
-			val packageName = bytes.readStringUtf16(size = 128)
+			val packageName = bytes.readStringUtf16(charSize = 128)
 
 			bytes.readU32() // typeStringsOffset
 			bytes.readU32() // lastPublicType

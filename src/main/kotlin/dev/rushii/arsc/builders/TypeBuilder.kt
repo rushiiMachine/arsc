@@ -39,7 +39,7 @@ public fun ArscType.spec(id: UInt? = null, block: ArscSpecs.Spec.() -> Unit): Ar
 	val targetId = (id ?: specs.highestSpecId()) + 1U
 
 	val spec = specs.specs.computeIfAbsent(targetId) {
-		dev.rushii.arsc.ArscSpecs.Spec(
+		ArscSpecs.Spec(
 			id = targetId,
 			flags = 0u,
 		)

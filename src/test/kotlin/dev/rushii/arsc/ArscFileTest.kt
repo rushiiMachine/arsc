@@ -6,9 +6,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 /**
- * End to end full parsing/writing tests for [Arsc]
+ * End to end full parsing/writing tests for [ArscFile]
  */
-class ArscTest {
+class ArscFileTest {
 	private val arscFile = javaClass.classLoader.getResource("discord.arsc")!!
 	private val arscBytes = arscFile.readBytes()
 
@@ -20,19 +20,19 @@ class ArscTest {
 			types = mutableMapOf(),
 		)
 
-		val arsc = Arsc(listOf(pkg))
+		val arsc = ArscFile(listOf(pkg))
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
 	}
 
 	@Test
 	fun `from bytes`() {
-		val arsc = assertDoesNotThrow { Arsc(arscBytes) }
+		val arsc = assertDoesNotThrow { ArscFile(arscBytes) }
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
 	}
 
 	@Test
 	fun `from file`() {
-		val arsc = assertDoesNotThrow { Arsc(File(arscFile.file)) }
+		val arsc = assertDoesNotThrow { ArscFile(File(arscFile.file)) }
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
 	}
 }

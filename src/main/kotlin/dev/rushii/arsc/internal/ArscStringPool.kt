@@ -1,6 +1,7 @@
 package dev.rushii.arsc.internal
 
-import dev.rushii.arsc.*
+import dev.rushii.arsc.ArscError
+import dev.rushii.arsc.ArscStyle
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 

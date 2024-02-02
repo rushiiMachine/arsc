@@ -56,11 +56,11 @@ internal fun ByteBuffer.putNullBytes(amount: Int) {
 
 /**
  * Read null-terminated string with UTF16LE encoding.
- * @param size The char count of this string. Note that the amount of bytes read is `charSize * 2`
+ * @param charSize The char count of this string. Note that the amount of bytes read is `charSize * 2`
  */
-internal fun ByteBuffer.readStringUtf16(size: Int): String {
-	val bytes = ByteArray(size * 2)
-		.also { get(it, 0, size * 2) }
+internal fun ByteBuffer.readStringUtf16(charSize: Int): String {
+	val bytes = ByteArray(charSize * 2)
+		.also { get(it, 0, charSize * 2) }
 
 	val stringBytesSize = run {
 		for (i in 0..(bytes.size - 3)) {
@@ -96,10 +96,3 @@ internal fun ByteBuffer.putStringUtf16(string: String, outSize: Int) {
 	put(bytes)
 	putNullBytes(fillCount)
 }
-
-/**
- * Shift this value left by the [bitCount] number of bits.
- * Based on a copy of [UInt.shl]
- */
-@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-internal infix fun UShort.shl(bitCount: Int): UShort = UShort((data.toUInt() shl bitCount).toShort())

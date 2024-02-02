@@ -10,7 +10,7 @@ import java.nio.ByteOrder
 /**
  * The main parser and writer for editing `*.arsc` files like an APK's `resources.arsc`.
  */
-public class Arsc {
+public class ArscFile {
 	public val packages: List<ArscPackage>
 
 	/**
@@ -63,7 +63,7 @@ public class Arsc {
 			pkg.types.values.flatMap { type ->
 				type.configs.flatMap { cfg ->
 					cfg.resources.mapNotNull { rsc ->
-						(rsc.value as? ArscValue.PlainString)?.data
+						(rsc.value as? ArscValue.Plain.String)?.data
 					}
 				}
 			}
