@@ -1,0 +1,226 @@
+public final class com/github/diamondminer88/arsc/Arsc {
+	public fun <init> (Ljava/io/File;)V
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> ([B)V
+	public final fun finalize ()[B
+	public final fun getPackages ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+	public final fun write (Ljava/io/File;)V
+}
+
+public final class com/github/diamondminer88/arsc/ArscConfig {
+	public synthetic fun <init> (BLcom/github/diamondminer88/arsc/ArscConfig$ConfigId;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (BLcom/github/diamondminer88/arsc/ArscConfig$ConfigId;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w2LRezQ ()B
+	public final fun component2 ()Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy-d-jbwkw (BLcom/github/diamondminer88/arsc/ArscConfig$ConfigId;Ljava/util/List;)Lcom/github/diamondminer88/arsc/ArscConfig;
+	public static synthetic fun copy-d-jbwkw$default (Lcom/github/diamondminer88/arsc/ArscConfig;BLcom/github/diamondminer88/arsc/ArscConfig$ConfigId;Ljava/util/List;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConfigId ()Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;
+	public final fun getResources ()Ljava/util/List;
+	public final fun getTypeId-w2LRezQ ()B
+	public fun hashCode ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;Lcom/github/diamondminer88/arsc/internal/ArscStringPool;Lcom/github/diamondminer88/arsc/internal/ArscStringPool;)Lcom/github/diamondminer88/arsc/ArscConfig;
+	public final fun setResources (Ljava/util/List;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscConfig$ConfigId {
+	public synthetic fun <init> ([BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-TcUX1vc ()[B
+	public final fun copy-GBYM_sE ([B)Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;
+	public static synthetic fun copy-GBYM_sE$default (Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;[BILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData-TcUX1vc ()[B
+	public fun hashCode ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;)Lcom/github/diamondminer88/arsc/ArscConfig$ConfigId;
+	public final fun setData-GBYM_sE ([B)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscError : java/lang/Error {
+	public fun <init> (ILjava/lang/Object;Ljava/lang/String;)V
+}
+
+public abstract interface annotation class com/github/diamondminer88/arsc/ArscInternalApi : java/lang/annotation/Annotation {
+}
+
+public final class com/github/diamondminer88/arsc/ArscPackage {
+	public synthetic fun <init> (ILjava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-pVg5ArA ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/Map;
+	public final fun copy-OzbTU-A (ILjava/lang/String;Ljava/util/Map;)Lcom/github/diamondminer88/arsc/ArscPackage;
+	public static synthetic fun copy-OzbTU-A$default (Lcom/github/diamondminer88/arsc/ArscPackage;ILjava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscPackage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-pVg5ArA ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getTypes ()Ljava/util/Map;
+	public fun hashCode ()I
+	public final fun highestTypeId-pVg5ArA ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;Lcom/github/diamondminer88/arsc/internal/ArscStringPool;)Lcom/github/diamondminer88/arsc/ArscPackage;
+	public final fun setId-WZ4Q5Ns (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setTypes (Ljava/util/Map;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscResource {
+	public synthetic fun <init> (ISLjava/lang/String;Lcom/github/diamondminer88/arsc/ArscValue;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ISLjava/lang/String;Lcom/github/diamondminer88/arsc/ArscValue;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-pVg5ArA ()I
+	public final fun component2-Mh2AYeg ()S
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lcom/github/diamondminer88/arsc/ArscValue;
+	public final fun copy-yIEhcao (ISLjava/lang/String;Lcom/github/diamondminer88/arsc/ArscValue;)Lcom/github/diamondminer88/arsc/ArscResource;
+	public static synthetic fun copy-yIEhcao$default (Lcom/github/diamondminer88/arsc/ArscResource;ISLjava/lang/String;Lcom/github/diamondminer88/arsc/ArscValue;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscResource;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFlags-Mh2AYeg ()S
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSpecId-pVg5ArA ()I
+	public final fun getValue ()Lcom/github/diamondminer88/arsc/ArscValue;
+	public fun hashCode ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;ILcom/github/diamondminer88/arsc/internal/ArscStringPool;Lcom/github/diamondminer88/arsc/internal/ArscStringPool;)Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscSpecs {
+	public synthetic fun <init> (BLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (BLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w2LRezQ ()B
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy-0ky7B_Q (BLjava/util/Map;)Lcom/github/diamondminer88/arsc/ArscSpecs;
+	public static synthetic fun copy-0ky7B_Q$default (Lcom/github/diamondminer88/arsc/ArscSpecs;BLjava/util/Map;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscSpecs;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSpecs ()Ljava/util/Map;
+	public final fun getTypeId-w2LRezQ ()B
+	public fun hashCode ()I
+	public final fun highestSpecId-pVg5ArA ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;)Lcom/github/diamondminer88/arsc/ArscSpecs;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscSpecs$Spec {
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-pVg5ArA ()I
+	public final fun component2-pVg5ArA ()I
+	public final fun copy-feOb9K0 (II)Lcom/github/diamondminer88/arsc/ArscSpecs$Spec;
+	public static synthetic fun copy-feOb9K0$default (Lcom/github/diamondminer88/arsc/ArscSpecs$Spec;IIILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscSpecs$Spec;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFlags-pVg5ArA ()I
+	public final fun getId-pVg5ArA ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscStyle {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/github/diamondminer88/arsc/ArscStyle;
+	public static synthetic fun copy$default (Lcom/github/diamondminer88/arsc/ArscStyle;Ljava/util/List;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscStyle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSpans ()Ljava/util/List;
+	public fun hashCode ()I
+	public static final fun parse (Ljava/nio/ByteBuffer;)Lcom/github/diamondminer88/arsc/ArscStyle;
+	public final fun size ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscStyle$Span {
+	public static final field Companion Lcom/github/diamondminer88/arsc/ArscStyle$Span$Companion;
+	public synthetic fun <init> (Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2-pVg5ArA ()I
+	public final fun component3-pVg5ArA ()I
+	public final fun copy-BltQuoY (Ljava/lang/String;II)Lcom/github/diamondminer88/arsc/ArscStyle$Span;
+	public static synthetic fun copy-BltQuoY$default (Lcom/github/diamondminer88/arsc/ArscStyle$Span;Ljava/lang/String;IIILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscStyle$Span;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnd-pVg5ArA ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getStart-pVg5ArA ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscStyle$Span$Companion {
+	public final fun size ()I
+}
+
+public final class com/github/diamondminer88/arsc/ArscType {
+	public synthetic fun <init> (ILjava/lang/String;Ljava/util/List;Lcom/github/diamondminer88/arsc/ArscSpecs;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-pVg5ArA ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lcom/github/diamondminer88/arsc/ArscSpecs;
+	public final fun copy-SGjrQA4 (ILjava/lang/String;Ljava/util/List;Lcom/github/diamondminer88/arsc/ArscSpecs;)Lcom/github/diamondminer88/arsc/ArscType;
+	public static synthetic fun copy-SGjrQA4$default (Lcom/github/diamondminer88/arsc/ArscType;ILjava/lang/String;Ljava/util/List;Lcom/github/diamondminer88/arsc/ArscSpecs;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConfigs ()Ljava/util/List;
+	public final fun getId-pVg5ArA ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSpecs ()Lcom/github/diamondminer88/arsc/ArscSpecs;
+	public fun hashCode ()I
+	public final fun setConfigs (Ljava/util/List;)V
+	public final fun setId-WZ4Q5Ns (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setSpecs (Lcom/github/diamondminer88/arsc/ArscSpecs;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/diamondminer88/arsc/ArscValue {
+}
+
+public final class com/github/diamondminer88/arsc/ArscValue$Bag : com/github/diamondminer88/arsc/ArscValue {
+	public synthetic fun <init> (ILjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-pVg5ArA ()I
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy-qim9Vi0 (ILjava/util/Map;)Lcom/github/diamondminer88/arsc/ArscValue$Bag;
+	public static synthetic fun copy-qim9Vi0$default (Lcom/github/diamondminer88/arsc/ArscValue$Bag;ILjava/util/Map;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscValue$Bag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getParent-pVg5ArA ()I
+	public final fun getValues ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class com/github/diamondminer88/arsc/ArscValue$Plain : com/github/diamondminer88/arsc/ArscValue {
+	public static final field Companion Lcom/github/diamondminer88/arsc/ArscValue$Plain$Companion;
+	public fun <init> ()V
+	public abstract fun getType-w2LRezQ ()B
+}
+
+public final class com/github/diamondminer88/arsc/ArscValue$Plain$Companion {
+}
+
+public final class com/github/diamondminer88/arsc/ArscValue$PlainRaw : com/github/diamondminer88/arsc/ArscValue$Plain {
+	public synthetic fun <init> (BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w2LRezQ ()B
+	public final fun component2-pVg5ArA ()I
+	public final fun copy-g_SBl1M (BI)Lcom/github/diamondminer88/arsc/ArscValue$PlainRaw;
+	public static synthetic fun copy-g_SBl1M$default (Lcom/github/diamondminer88/arsc/ArscValue$PlainRaw;BIILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscValue$PlainRaw;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData-pVg5ArA ()I
+	public fun getType-w2LRezQ ()B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/ArscValue$PlainString : com/github/diamondminer88/arsc/ArscValue$Plain {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/github/diamondminer88/arsc/ArscValue$PlainString;
+	public static synthetic fun copy$default (Lcom/github/diamondminer88/arsc/ArscValue$PlainString;Ljava/lang/String;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscValue$PlainString;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Ljava/lang/String;
+	public fun getType-w2LRezQ ()B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/diamondminer88/arsc/builders/TypeBuilderKt {
+	public static final fun spec-SLwFa_Y (Lcom/github/diamondminer88/arsc/ArscType;Lkotlin/UInt;Lkotlin/jvm/functions/Function1;)Lcom/github/diamondminer88/arsc/ArscSpecs$Spec;
+	public static synthetic fun spec-SLwFa_Y$default (Lcom/github/diamondminer88/arsc/ArscType;Lkotlin/UInt;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/github/diamondminer88/arsc/ArscSpecs$Spec;
+	public static final fun type (Lcom/github/diamondminer88/arsc/ArscPackage;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/github/diamondminer88/arsc/ArscType;
+}
+

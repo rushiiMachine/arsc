@@ -1,5 +1,6 @@
 plugins {
 	kotlin("jvm") version "1.9.22"
+	id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.14.0"
 }
 
 group = "com.github.diamondminer88"
@@ -12,6 +13,11 @@ kotlin {
 		"-opt-in=kotlin.ExperimentalUnsignedTypes",
 		"-opt-in=com.github.diamondminer88.arsc.ArscInternalApi"
 	)
+}
+
+apiValidation {
+	ignoredPackages += "com.github.diamondminer88.arsc.internal"
+	nonPublicMarkers += "com.github.diamondminer88.arsc.ArscInternalApi"
 }
 
 tasks.test {
