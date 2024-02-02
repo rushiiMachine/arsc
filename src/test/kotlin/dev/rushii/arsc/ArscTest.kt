@@ -6,6 +6,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ArscTest {
+	private val arscFile = javaClass.classLoader.getResource("discord.arsc")!!
+	private val arscBytes = arscFile.readBytes()
+
 	@Test
 	fun `from parsed`() {
 		val pkg = ArscPackage(
@@ -20,20 +23,12 @@ class ArscTest {
 
 	@Test
 	fun `from bytes`() {
-		val arscFile = javaClass.classLoader
-			.getResourceAsStream("discord.arsc")!!
-			.readBytes()
-
-		val arsc = assertDoesNotThrow { Arsc(arscFile) }
+		val arsc = assertDoesNotThrow { Arsc(arscBytes) }
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
-		File("C:/Users/Fluff/Desktop/arsc.txt").writeText(arsc.toString())
 	}
 
 	@Test
 	fun `from file`() {
-		val arscFile = javaClass.classLoader
-			.getResource("discord.arsc")!!
-
 		val arsc = assertDoesNotThrow { Arsc(File(arscFile.file)) }
 		assertEquals("com.discord", arsc.packages.firstOrNull()?.name)
 	}
