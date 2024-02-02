@@ -37,10 +37,13 @@ internal fun ByteBuffer.align(alignment: Int) {
 internal fun ByteBuffer.writeAlignment(alignment: Int) {
 	val pos = position()
 	val remaining = pos % alignment
+	val target = alignment - remaining
 
-	if (remaining > 0) {
-		putNullBytes(alignment - remaining)
-	}
+	if (remaining <= 0) return
+	if (pos + target > limit())
+		throw ArscError(pos, null, "buffer limit too small to write alignment")
+
+	putNullBytes(target)
 }
 
 /**
