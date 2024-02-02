@@ -1,8 +1,6 @@
 package com.github.diamondminer88.arsc.internal
 
-import com.github.diamondminer88.arsc.ArscError
-import com.github.diamondminer88.arsc.ArscStyle
-import com.github.diamondminer88.arsc.ArscInternalApi
+import com.github.diamondminer88.arsc.*
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 
@@ -72,9 +70,7 @@ public data class ArscStringPool(
 
 			val styles = List(stylesCount.toInt()) { ArscStyle.parse(bytes) }
 
-			if (bytes.position() % 4 > 0) {
-				bytes.position(bytes.position() + 4 - (bytes.position() % 4))
-			}
+			bytes.align(4)
 
 			return ArscStringPool(
 				strings = strings,
@@ -172,9 +168,7 @@ public data class ArscStringPool(
 			}
 
 			// alignment
-			if (bytes.position() % 4 > 0) {
-				bytes.putNullBytes(4 - (bytes.position() % 4))
-			}
+			bytes.writeAlignment(4)
 
 			// styles
 			if (pool.styles.isNotEmpty()) {
