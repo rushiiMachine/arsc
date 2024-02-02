@@ -11,13 +11,13 @@ kotlin {
 
 	compilerOptions.freeCompilerArgs.addAll(
 		"-opt-in=kotlin.ExperimentalUnsignedTypes",
-		"-opt-in=dev.rushii.arsc.ArscInternalApi"
+		"-opt-in=dev.rushii.arsc.internal.ArscInternalApi"
 	)
 }
 
 apiValidation {
 	ignoredPackages += "dev.rushii.arsc.internal"
-	nonPublicMarkers += "dev.rushii.arsc.ArscInternalApi"
+	nonPublicMarkers += "dev.rushii.arsc.internal.ArscInternalApi"
 }
 
 tasks.test {

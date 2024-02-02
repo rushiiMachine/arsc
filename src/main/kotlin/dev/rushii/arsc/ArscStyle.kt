@@ -1,5 +1,6 @@
 package dev.rushii.arsc
 
+import dev.rushii.arsc.internal.ArscInternalApi
 import dev.rushii.arsc.internal.readU32
 import java.nio.ByteBuffer
 

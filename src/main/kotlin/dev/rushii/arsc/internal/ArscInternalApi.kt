@@ -1,4 +1,4 @@
-package dev.rushii.arsc
+package dev.rushii.arsc.internal
 
 @RequiresOptIn(
 	level = RequiresOptIn.Level.ERROR,
