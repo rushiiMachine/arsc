@@ -3,8 +3,12 @@ package dev.rushii.arsc
 import dev.rushii.arsc.internal.putNullBytes
 import dev.rushii.arsc.internal.writeAlignment
 import org.junit.jupiter.api.assertThrows
+import java.nio.ByteBuffer
 import kotlin.test.Test
 
+/**
+ * Tests for [ByteBuffer.writeAlignment]
+ */
 class WriteAlignmentTest {
 	@Test
 	fun `don't align when empty`() {

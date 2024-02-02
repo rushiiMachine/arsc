@@ -10,7 +10,9 @@ public data class ArscStringPool(
 	val styles: List<ArscStyle>,
 	val flags: UInt,
 ) {
-	/** Size of this entire data structure in bytes. */
+	/**
+	 * Size of this entire data structure in bytes.
+	 */
 	public fun size(): Int {
 		var size = 0
 		size += ArscHeader.size() // header

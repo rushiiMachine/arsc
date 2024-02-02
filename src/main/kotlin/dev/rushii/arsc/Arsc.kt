@@ -8,20 +8,20 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 /**
- * The base parser and/or writer for editing .arsc files
+ * The main parser and writer for editing `*.arsc` files like an APK's `resources.arsc`.
  */
 public class Arsc {
 	public val packages: List<ArscPackage>
 
 	/**
-	 * Creates an Arsc from an existing parsed package in memory
+	 * Creates an Arsc from an existing parsed package in memory.
 	 */
 	public constructor(packages: List<ArscPackage>) {
 		this.packages = packages
 	}
 
 	/**
-	 * Loads arsc from a bytearray
+	 * Parses an arsc file from a raw byte array.
 	 */
 	public constructor(bytes: ByteArray) {
 		val buffer = ByteBuffer

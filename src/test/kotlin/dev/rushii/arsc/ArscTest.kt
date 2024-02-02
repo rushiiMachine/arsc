@@ -5,6 +5,9 @@ import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * End to end full parsing/writing tests for [Arsc]
+ */
 class ArscTest {
 	private val arscFile = javaClass.classLoader.getResource("discord.arsc")!!
 	private val arscBytes = arscFile.readBytes()

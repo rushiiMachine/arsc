@@ -2,9 +2,13 @@ package dev.rushii.arsc
 
 import dev.rushii.arsc.internal.align
 import org.junit.jupiter.api.assertThrows
+import java.nio.ByteBuffer
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * Tests for [ByteBuffer.align]
+ */
 class PositionAlignmentTest {
 	@Test
 	fun `don't align when empty`() {

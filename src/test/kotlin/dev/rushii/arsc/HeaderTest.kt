@@ -5,6 +5,9 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * Parsing/writing tests for [ArscHeader]
+ */
 class HeaderTest {
 	@Test
 	fun parses() {

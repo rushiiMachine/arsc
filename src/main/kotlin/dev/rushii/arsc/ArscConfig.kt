@@ -4,7 +4,7 @@ import dev.rushii.arsc.internal.*
 import java.nio.ByteBuffer
 
 /**
- * Represents a type configuration (mipmap-xxhdpi, mipmap-hdpi, etc...)
+ * Represents a type configuration (`mipmap-xxhdpi`, `mipmap-hdpi`, etc...)
  * @param typeId The parsed type id this belongs to
  * @param configId The id of this config
  * @param resources The actual resource data

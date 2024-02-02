@@ -55,9 +55,8 @@ internal fun ByteBuffer.putNullBytes(amount: Int) {
 }
 
 /**
- * Read null-terminated string with utf16 encoding
- * ## Warning:
- * This function always reads `SIZE * 2` bytes
+ * Read null-terminated string with UTF16LE encoding.
+ * @param size The char count of this string. Note that the amount of bytes read is `charSize * 2`
  */
 internal fun ByteBuffer.readStringUtf16(size: Int): String {
 	val bytes = ByteArray(size * 2)
@@ -84,6 +83,7 @@ internal fun ByteBuffer.readStringUtf16(size: Int): String {
 	return String(trimmedBytes, Charsets.UTF_16LE)
 }
 
+// TODO: UTF16LE string writer
 internal fun ByteBuffer.putStringUtf16(string: String, outSize: Int) {
 	val bytes = string.toByteArray(Charsets.UTF_16LE)
 	val fillCount = 128 - bytes.size

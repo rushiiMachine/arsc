@@ -5,6 +5,9 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * Parsing/writing tests for [ArscHeaderType]
+ */
 class HeaderTypeTest {
 	@Test
 	fun `string pool test`() {

@@ -17,10 +17,15 @@ public enum class ArscHeaderType(public val value: UShort) {
 	TableLibrary(0x0203u);
 
 	public companion object {
-		/** Size of this data structure in bytes. */
+		/**
+		 * Size of this data structure in bytes.
+		 */
 		@JvmStatic
 		public fun size(): Int = UShort.SIZE_BYTES
 
+		/**
+		 * Parses an arsc header type from the current position in the buffer and advances the position.
+		 */
 		@JvmStatic
 		public fun parse(bytes: ByteBuffer): ArscHeaderType {
 			return when (val value = bytes.readU16()) {
@@ -34,6 +39,9 @@ public enum class ArscHeaderType(public val value: UShort) {
 			}
 		}
 
+		/**
+		 * Write an arsc header type to the current position in the buffer and advance the position.
+		 */
 		@JvmStatic
 		public fun write(bytes: ByteBuffer, value: ArscHeaderType) {
 			bytes.putShort(value.value.toShort())
