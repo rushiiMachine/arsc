@@ -1,7 +1,6 @@
 plugins {
 	kotlin("jvm") version "1.9.22"
 	id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.14.0"
-	id("land.sungbin.kotlin.dataclass.nocopy.plugin") version "1.0.4"
 }
 
 group = "com.github.diamondminer88"

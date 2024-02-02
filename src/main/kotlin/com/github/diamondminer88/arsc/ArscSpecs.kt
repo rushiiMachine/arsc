@@ -1,10 +1,8 @@
 package com.github.diamondminer88.arsc
 
 import com.github.diamondminer88.arsc.internal.*
-import land.sungbin.kotlin.dataclass.nocopy.NoCopy
 import java.nio.ByteBuffer
 
-@NoCopy
 public data class ArscSpecs(
 	val typeId: UByte = 0u,
 	val specs: MutableMap<UInt, Spec>,
@@ -16,7 +14,6 @@ public data class ArscSpecs(
 			?: 1U
 	}
 
-	@NoCopy
 	public data class Spec(
 		val id: UInt,
 		val flags: UInt,
